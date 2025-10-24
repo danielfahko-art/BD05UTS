@@ -156,16 +156,18 @@ elif selected == "Comparison":
         # =====================
         # YOLO - Object Detection
         # =====================
-        with col1:
+       with col1:
             st.subheader("🧩 YOLO Object Detection")
             with st.spinner("🔍 Sedang mendeteksi objek..."):
                 yolo_results = yolo_model(img)
                 yolo_img = yolo_results[0].plot()
 
             st.image(yolo_img, caption="Hasil Deteksi YOLO", use_container_width=True)
-            detected_classes = [r.names[int(c)] for c in yolo_results[0].boxes.cls]
-            if detected_classes:
-                st.write(f"**Objek Terdeteksi:** {', '.join(detected_classes)}")
+
+            # Cek apakah ada objek terdeteksi
+            if len(yolo_results[0].boxes.cls) > 0:
+                detected_classes = [yolo_results[0].names[int(c)] for c in yolo_results[0].boxes.cls]
+                st.write(f"**Objek Terdeteksi:** {', '.join(set(detected_classes))}")
             else:
                 st.write("Tidak ada objek terdeteksi.")
 
