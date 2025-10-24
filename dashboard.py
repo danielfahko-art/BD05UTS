@@ -3,7 +3,7 @@ import streamlit as st
 st.set_page_config(page_title="IrisAI Dashboard", layout="wide")
 
 # ===============================
-# Helper: read current page from URL query param (safe)
+# Helper: ambil halaman aktif
 # ===============================
 def get_current_page():
     params = st.experimental_get_query_params()
@@ -15,18 +15,19 @@ def get_current_page():
 current_page = get_current_page()
 
 # ===============================
-# STYLES: remove top white gap + navbar gradient + link styling
+# CSS STYLING — versi aman (tertutup sempurna)
 # ===============================
-st.markdown(
-    """
-    <style>
-    /* remove Streamlit top header and top padding */
-    section[data-testid="stHeader"] {display: none;}
-    div.block-container {padding-top: 0rem;}
+st.markdown("""
+<style>
+/* Hilangkan header Streamlit dan padding default */
+section[data-testid="stHeader"] {display: none;}
+div.block-container {padding-top: 0rem;}
 
-    /* navbar container */
-    .navbar {
-        width: 100%;
-        box-sizing: border-box;
-        padding: 14px 36px;
-        displa
+/* Navbar */
+.navbar {
+    width: 100%;
+    padding: 14px 36px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    p
