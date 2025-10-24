@@ -185,7 +185,7 @@ elif selected == "Object Detection":
                     st.error(f"❌ Error saat deteksi: {e}")
     
     if st.button("🔄 Reset"):
-        st.experimental_rerun()
+        st.rerun()  # Perbaikan: Ganti experimental_rerun dengan rerun
 
 # ==========================
 # CLASSIFICATION
@@ -236,7 +236,7 @@ elif selected == "Classification":
                     st.error(f"❌ Error saat klasifikasi: {e}")
     
     if st.button("🔄 Reset"):
-        st.experimental_rerun()
+        st.rerun()  # Perbaikan: Ganti experimental_rerun dengan rerun
 
 # ==========================
 # ABOUT MODELS
