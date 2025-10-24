@@ -156,7 +156,7 @@ elif selected == "Comparison":
         # =====================
         # YOLO - Object Detection
         # =====================
-       with col1:
+        with col1:
             st.subheader("🧩 YOLO Object Detection")
             with st.spinner("🔍 Sedang mendeteksi objek..."):
                 yolo_results = yolo_model(img)
