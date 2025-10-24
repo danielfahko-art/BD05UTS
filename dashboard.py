@@ -20,9 +20,9 @@ yolo_model, classifier = load_models()
 # ==========================
 # UI
 # ==========================
-st.title("🧠 Image Classification & Object Detection App")
+st.title("Iris AI 🌺")
 
-menu = st.sidebar.selectbox("Pilih Mode:", ["Deteksi Objek (YOLO)", "Klasifikasi Gambar"])
+menu = mode = st.radio("Pilih Mode:", ["🧩 Deteksi Objek", "🌸 Klasifikasi"], horizontal=True)
 
 uploaded_file = st.file_uploader("Unggah Gambar", type=["jpg", "jpeg", "png"])
 
@@ -30,13 +30,13 @@ if uploaded_file is not None:
     img = Image.open(uploaded_file)
     st.image(img, caption="Gambar yang Diupload", use_container_width=True)
 
-    if menu == "Deteksi Objek (YOLO)":
+    if menu == "🧩 Deteksi Objek":
         # Deteksi objek
         results = yolo_model(img)
         result_img = results[0].plot()  # hasil deteksi (gambar dengan box)
         st.image(result_img, caption="Hasil Deteksi", use_container_width=True)
 
-    elif menu == "Klasifikasi Gambar":
+    elif menu == "🌸 Klasifikasi":
         # Preprocessing
         img_resized = img.resize((224, 224))  # sesuaikan ukuran dengan model kamu
         img_array = image.img_to_array(img_resized)
