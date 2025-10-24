@@ -20,23 +20,39 @@ yolo_model, classifier = load_models()
 # ==========================
 # UI
 # ==========================
-st.title("Iris AI 🌺")
+st.set_page_config(page_title="Iris AI 🌺", layout="wide")
+st.title("🌺 Iris AI Dashboard")
 
-menu = mode = st.radio("Pilih Mode:", ["🧩 Deteksi Objek", "🌸 Klasifikasi"], horizontal=True)
+tab1, tab2 = st.tabs(["🧩 Deteksi Objek", "🌸 Klasifikasi"])
 
-uploaded_file = st.file_uploader("Unggah Gambar", type=["jpg", "jpeg", "png"])
+# ==========================
+# TAB 1 — DETEKSI OBJEK
+# ==========================
+with tab1:
+    st.subheader("🧩 Deteksi Objek (YOLO)")
+    uploaded_file = st.file_uploader("Unggah Gambar untuk Deteksi Objek", type=["jpg", "jpeg", "png"], key="deteksi")
 
-if uploaded_file is not None:
-    img = Image.open(uploaded_file)
-    st.image(img, caption="Gambar yang Diupload", use_container_width=True)
+    if uploaded_file is not None:
+        img = Image.open(uploaded_file)
+        st.image(img, caption="Gambar yang Diupload", use_container_width=True)
 
-    if menu == "🧩 Deteksi Objek":
-        # Deteksi objek
-        results = yolo_model(img)
-        result_img = results[0].plot()  # hasil deteksi (gambar dengan box)
-        st.image(result_img, caption="Hasil Deteksi", use_container_width=True)
+        # Proses deteksi
+        with st.spinner("🔍 Sedang mendeteksi objek..."):
+            results = yolo_model(img)
+            result_img = results[0].plot()  # hasil deteksi (gambar dengan bounding box)
+            st.image(result_img, caption="Hasil Deteksi", use_container_width=True)
 
-    elif menu == "🌸 Klasifikasi":
+# ==========================
+# TAB 2 — KLASIFIKASI GAMBAR
+# ==========================
+with tab2:
+    st.subheader("🌸 Klasifikasi Gambar (CNN)")
+    uploaded_file = st.file_uploader("Unggah Gambar untuk Klasifikasi", type=["jpg", "jpeg", "png"], key="klasifikasi")
+
+    if uploaded_file is not None:
+        img = Image.open(uploaded_file)
+        st.image(img, caption="Gambar yang Diupload", use_container_width=True)
+
         # Preprocessing
         img_resized = img.resize((224, 224))  # sesuaikan ukuran dengan model kamu
         img_array = image.img_to_array(img_resized)
@@ -44,7 +60,10 @@ if uploaded_file is not None:
         img_array = img_array / 255.0
 
         # Prediksi
-        prediction = classifier.predict(img_array)
-        class_index = np.argmax(prediction)
-        st.write("### Hasil Prediksi:", class_index)
-        st.write("Probabilitas:", np.max(prediction))
+        with st.spinner("🔮 Sedang memprediksi..."):
+            prediction = classifier.predict(img_array)
+            class_index = np.argmax(prediction)
+            confidence = np.max(prediction)
+
+        st.success(f"### 🌸 Hasil Prediksi: {class_index}")
+        st.write(f"**Probabilitas:** {confidence:.2%}")
