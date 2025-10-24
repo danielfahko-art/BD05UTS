@@ -118,7 +118,7 @@ if option_menu is not None:
         default_index=0,
         styles={
             "container": {"padding": "0!important", "background-color": "#1E1E1E"},
-            "icon": {"color": #8A2BE2", "font-size": "18px"},
+            "icon": {"color": "#8A2BE2", "font-size": "18px"},  # Perbaikan: quotes ditambahkan
             "nav-link": {"font-size": "14px", "text-align": "center", "margin": "0px", "--hover-color": "#333333"},
             "nav-link-selected": {"background-color": "#8A2BE2", "color": "white"},
         },
