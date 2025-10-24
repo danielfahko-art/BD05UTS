@@ -319,4 +319,4 @@ elif selected == "Comparison":
 # FOOTER
 # ==========================
 st.markdown("---")
-st.markdown("**Iris AI Dashboard** - Dibuat dengan ❤️ menggunakan Streamlit. Tema gelap oleh AI Assistant.")
+st.markdown("**Iris AI Dashboard** - Dibuat dengan ❤️ menggunakan Streamlit.")
