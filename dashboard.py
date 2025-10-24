@@ -6,52 +6,72 @@ import numpy as np
 from PIL import Image
 
 # ==========================
-# Konfigurasi Tema
+# Styling & Theme
 # ==========================
 st.markdown("""
     <style>
-    /* Background dan teks utama */
+    /* Latar belakang utama */
     [data-testid="stAppViewContainer"] {
-        background-color: #f8fbff;
-        color: #0d1b2a;
+        background-color: #f4f9ff; /* putih kebiruan lembut */
+        color: #002b5b; /* teks biru gelap */
     }
 
     /* Sidebar */
     [data-testid="stSidebar"] {
-        background-color: #e6f0ff;
+        background-color: #ffffff;
+        border-right: 1px solid #d0e2ff;
     }
 
-    /* Header judul */
+    /* Judul utama */
     h1 {
         color: #0056b3;
         text-align: center;
-        font-weight: 700;
+        font-weight: 800;
+        padding-bottom: 0.2em;
     }
 
-    /* Tab styling */
+    /* Subheader */
+    h2, h3 {
+        color: #004080;
+        font-weight: 600;
+    }
+
+    /* Tabs */
     div[data-baseweb="tab"] {
-        background-color: #cfe2ff;
-        color: #003366;
-        border-radius: 10px;
-        margin-right: 8px;
-        padding: 10px 20px;
+        background-color: #e3f2ff;
+        color: #003366 !important;
+        border-radius: 8px;
+        margin-right: 10px;
+        padding: 10px 18px;
         font-weight: 600;
     }
     div[data-baseweb="tab"]:hover {
-        background-color: #b6d4fe;
+        background-color: #d0e7ff;
     }
 
-    /* Tombol unggah */
+    /* File uploader agar tidak hitam */
     [data-testid="stFileUploader"] {
-        background-color: #e6f0ff;
+        background-color: #f0f7ff;
+        border: 2px dashed #80bfff;
         border-radius: 10px;
-        padding: 10px;
+        padding: 15px;
+    }
+    [data-testid="stFileUploader"] section div {
+        color: #004080 !important;
     }
 
     /* Gambar */
     img {
         border-radius: 12px;
+        border: 1px solid #d0e2ff;
     }
+
+    /* Pesan success/info */
+    .stSuccess, .stInfo {
+        border-radius: 10px;
+        padding: 10px;
+    }
+
     </style>
 """, unsafe_allow_html=True)
 
@@ -103,6 +123,6 @@ with tab2:
         prediction = classifier.predict(img_array)
         class_index = np.argmax(prediction)
         class_names = ["Iris Setosa", "Iris Versicolor", "Iris Virginica"]
-        st.success(f"### Hasil Prediksi: {class_names[class_index]}")
-        st.info(f"Probabilitas: {np.max(prediction):.2f}")
 
+        st.success(f"### 🌷 Hasil Prediksi: {class_names[class_index]}")
+        st.info(f"Probabilitas: {np.max(prediction):.2f}")
