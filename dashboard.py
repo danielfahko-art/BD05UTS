@@ -14,18 +14,19 @@ except Exception:
     option_menu = None
 
 # ==========================
-# Custom CSS untuk UI Modern (Tema Putih-Ungu-Biru Modern)
+# Custom CSS untuk Tema Gelap Modern (Background Gelap, Font Terang)
 # ==========================
 st.markdown("""
     <style>
-    .main { background-color: #FFFFFF; }  /* Latar belakang putih bersih */
-    .stTitle { color: #8A2BE2; font-family: 'Arial', sans-serif; font-weight: bold; }  /* Judul ungu modern */
-    .stMarkdown { font-size: 16px; color: #333333; }  /* Teks abu gelap untuk readability */
+    .main { background-color: #121212; color: #F0F0F0; }  /* Background gelap, font terang */
+    .stTitle { color: #FFFFFF; font-family: 'Arial', sans-serif; font-weight: bold; }  /* Judul putih */
+    .stMarkdown { font-size: 16px; color: #F0F0F0; }  /* Teks abu terang */
     .stButton>button { background: linear-gradient(45deg, #8A2BE2, #00CED1); color: white; border-radius: 10px; border: none; padding: 10px 20px; font-weight: bold; }
     .stButton>button:hover { background: linear-gradient(45deg, #00CED1, #8A2BE2); }
     .stProgress > div > div > div > div { background: linear-gradient(45deg, #8A2BE2, #00CED1); }
-    .stSidebar { background-color: #F8F9FA; }  /* Sidebar abu muda */
-    .stRadio > div { color: #8A2BE2; }
+    .stSidebar { background-color: #1E1E1E; color: #F0F0F0; }  /* Sidebar gelap */
+    .stRadio > div { color: #F0F0F0; }
+    .model-box { border: 2px solid #8A2BE2; border-radius: 10px; padding: 15px; margin: 10px 0; background-color: #1E1E1E; }  /* Kotak model */
     </style>
 """, unsafe_allow_html=True)
 
@@ -116,9 +117,9 @@ if option_menu is not None:
         orientation="horizontal",
         default_index=0,
         styles={
-            "container": {"padding": "0!important", "background-color": "#F8F9FA"},
-            "icon": {"color": "#8A2BE2", "font-size": "18px"},
-            "nav-link": {"font-size": "14px", "text-align": "center", "margin": "0px", "--hover-color": "#E6E6FA"},
+            "container": {"padding": "0!important", "background-color": "#1E1E1E"},
+            "icon": {"color": #8A2BE2", "font-size": "18px"},
+            "nav-link": {"font-size": "14px", "text-align": "center", "margin": "0px", "--hover-color": "#333333"},
             "nav-link-selected": {"background-color": "#8A2BE2", "color": "white"},
         },
     )
@@ -242,12 +243,35 @@ elif selected == "Classification":
 # ==========================
 elif selected == "About Models":
     st.title("ℹ️ Tentang Model")
-    st.markdown("""
-    - **YOLO (You Only Look Once)**: Model deteksi objek real-time dari Ultralytics. Cocok untuk mendeteksi objek dalam gambar. [Pelajari lebih lanjut](https://docs.ultralytics.com/).
-    - **CNN (Convolutional Neural Network)**: Model klasifikasi gambar berbasis Keras/TensorFlow. Mengklasifikasikan gambar ke nama bunga seperti Iris-setosa, Iris-versicolor, atau Iris-virginica.
+    st.markdown("Halaman ini menjelaskan model yang digunakan dalam dashboard Iris AI.")
     
-    Model ini dilatih pada dataset khusus (sesuai nama file Anda).
-    """)
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.markdown('<div class="model-box">', unsafe_allow_html=True)
+        st.subheader("🧩 Model yang Digunakan: YOLO")
+        st.markdown("""
+        **YOLO (You Only Look Once)** adalah model deteksi objek real-time dari Ultralytics. 
+        - **Fungsi**: Mendeteksi dan mengklasifikasikan objek dalam gambar dengan bounding box.
+        - **Keunggulan**: Cepat, akurat untuk aplikasi real-time, dan mendukung multiple objek.
+        - **Penggunaan di Dashboard**: Digunakan untuk halaman Object Detection.
+        
+        [Pelajari lebih lanjut](https://docs.ultralytics.com/).
+        """)
+        st.markdown('</div>', unsafe_allow_html=True)
+    
+    with col2:
+        st.markdown('<div class="model-box">', unsafe_allow_html=True)
+        st.subheader("🌸 Model yang Digunakan: CNN")
+        st.markdown("""
+        **CNN (Convolutional Neural Network)** adalah model klasifikasi gambar berbasis Keras/TensorFlow. 
+        - **Fungsi**: Menganalisis fitur gambar untuk mengkategorikan ke dalam kelas (misalnya, nama bunga).
+        - **Keunggulan**: Efisien untuk tugas klasifikasi, dapat dilatih pada dataset besar.
+        - **Penggunaan di Dashboard**: Digunakan untuk halaman Classification, memprediksi nama bunga seperti Iris-setosa.
+        
+        [Pelajari lebih lanjut](https://www.tensorflow.org/).
+        """)
+        st.markdown('</div>', unsafe_allow_html=True)
 
 # ==========================
 # COMPARISON
@@ -289,4 +313,4 @@ elif selected == "Comparison":
 # FOOTER
 # ==========================
 st.markdown("---")
-st.markdown("**Iris AI Dashboard** - Dibuat dengan ❤️ menggunakan Streamlit. Tema modern oleh AI Assistant.")
+st.markdown("**Iris AI Dashboard** - Dibuat dengan ❤️ menggunakan Streamlit. Tema gelap oleh AI Assistant.")
