@@ -7,34 +7,56 @@ st.set_page_config(page_title="IrisAI Dashboard", layout="wide")
 # ===============================
 st.markdown("""
 <style>
-div[data-testid="column"] {
-    display: flex;
-    align-items: center;
+/* Hapus ruang kosong default di atas halaman */
+section[data-testid="stHeader"] {
+    display: none;
 }
+div.block-container {
+    padding-top: 0rem;
+}
+
+/* Navbar elegan dengan gradient */
 .navbar {
-    background-color: #ffffff;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    padding: 1rem 2rem;
-    margin-bottom: 1.5rem;
+    background: linear-gradient(90deg, #1e3a8a, #7c3aed);
+    color: white;
+    padding: 1rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     position: sticky;
     top: 0;
     z-index: 999;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
 }
-.nav-button {
+
+/* Nama aplikasi di kiri */
+.nav-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+/* Tombol menu */
+.nav-menu {
+    display: flex;
+    gap: 1.5rem;
+}
+.nav-btn {
     background: none;
     border: none;
-    color: #1f3b73;
+    color: #e0e7ff;
     font-weight: 500;
     font-size: 1.05rem;
     cursor: pointer;
-    transition: color 0.2s ease, border-bottom 0.2s ease;
+    transition: all 0.2s ease;
 }
-.nav-button:hover {
-    color: #2563eb;
+.nav-btn:hover {
+    color: #ffffff;
+    transform: translateY(-1px);
 }
 .active {
-    color: #2563eb !important;
-    border-bottom: 2px solid #2563eb;
+    color: #ffffff !important;
+    border-bottom: 2px solid #ffffff;
     padding-bottom: 2px;
 }
 </style>
@@ -51,61 +73,48 @@ def set_page(page_name):
     st.session_state.page = page_name
 
 # ===============================
-# NAVBAR STREAMLIT
+# NAVBAR HTML
 # ===============================
-st.markdown('<div class="navbar">', unsafe_allow_html=True)
+pages = ["home", "object", "classify", "about", "live"]
+icons = {
+    "home": "🏠 Home",
+    "object": "🧩 Object Detection",
+    "classify": "🌸 Classification",
+    "about": "📊 About Models",
+    "live": "⚡ Live Demo"
+}
 
-col1, col2, col3, col4, col5, col6 = st.columns([1.5, 1, 1.5, 1.8, 1.5, 1.5])
+nav_html = f"""
+<div class="navbar">
+    <div class="nav-title">🌺 IrisAI</div>
+    <div class="nav-menu">
+"""
+for p in pages:
+    active_class = "active" if st.session_state.page == p else ""
+    nav_html += f"""
+        <form action="" method="get" style="display:inline;">
+            <button class="nav-btn {active_class}" name="page" value="{p}" type="submit">{icons[p]}</button>
+        </form>
+    """
+nav_html += "</div></div>"
 
-with col1:
-    st.markdown("<h3 style='color:#2563eb; margin:0;'>IrisAI</h3>", unsafe_allow_html=True)
-with col2:
-    if st.button("🏠 Home", key="home", use_container_width=True):
-        set_page("home")
-with col3:
-    if st.button("🧩 Object Detection", key="object", use_container_width=True):
-        set_page("object")
-with col4:
-    if st.button("🌸 Classification", key="classify", use_container_width=True):
-        set_page("classify")
-with col5:
-    if st.button("📊 About Models", key="about", use_container_width=True):
-        set_page("about")
-with col6:
-    if st.button("⚡ Live Demo", key="live", use_container_width=True):
-        set_page("live")
+st.markdown(nav_html, unsafe_allow_html=True)
 
-st.markdown('</div>', unsafe_allow_html=True)
+# ===============================
+# LOGIKA NAVIGASI
+# ===============================
+query_params = st.query_params
+if "page" in query_params:
+    st.session_state.page = query_params["page"]
 
-# Tambahkan efek aktif secara visual
-st.markdown(
-    f"""
-    <style>
-    button[kind="secondary"] {{
-        color: #1f3b73 !important;
-        border: none !important;
-        background: none !important;
-    }}
-    div.stButton > button:first-child {{
-        border-radius: 0px !important;
-    }}
-    button[key="{st.session_state.page}"] {{
-        color: #2563eb !important;
-        border-bottom: 2px solid #2563eb !important;
-    }}
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+page = st.session_state.page
 
 # ===============================
 # HALAMAN UTAMA
 # ===============================
-page = st.session_state.page
-
 if page == "home":
     st.title("🏠 Home Page")
-    st.write("Selamat datang di dashboard IrisAI.")
+    st.write("Selamat datang di dashboard **IrisAI**.")
 
 elif page == "object":
     st.title("🧩 Object Detection")
