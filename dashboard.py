@@ -41,7 +41,7 @@ CLASS_NAMES = {
 }
 
 # ==========================
-# Load Models (dengan error handling yang lebih baik)
+# Load Models (dengan error handling yang lebih baik, tanpa pesan sukses)
 # ==========================
 @st.cache_resource
 def load_models():
@@ -53,13 +53,13 @@ def load_models():
 
     try:
         yolo_model = YOLO(yolo_path)
-        st.success("✅ YOLO model berhasil dimuat!")
+        # st.success("✅ YOLO model berhasil dimuat!")  # DIHAPUS: Tidak tampilkan pesan sukses
     except Exception as e:
         st.error(f"❌ Gagal memuat YOLO model: {e}. Pastikan file ada di 'model/'.")
 
     try:
         cnn_model = tf.keras.models.load_model(cnn_path)
-        st.success("✅ CNN model berhasil dimuat!")
+        # st.success("✅ CNN model berhasil dimuat!")  # DIHAPUS: Tidak tampilkan pesan sukses
     except Exception as e:
         st.error(f"❌ Gagal memuat CNN model: {e}. Pastikan file ada di 'model/'.")
 
@@ -112,8 +112,8 @@ st.set_page_config(page_title="Iris AI 🌺", layout="wide", page_icon="🌸")
 if option_menu is not None:
     selected = option_menu(
         menu_title=None,
-        options=["Home", "Object Detection", "Classification", "Comparison","About Models"],
-        icons=["house", "bounding-box", "image", "bar-chart","info-circle"],
+        options=["Home", "Object Detection", "Classification", "About Models", "Comparison"],
+        icons=["house", "bounding-box", "image", "info-circle", "bar-chart"],
         orientation="horizontal",
         default_index=0,
         styles={
@@ -185,7 +185,7 @@ elif selected == "Object Detection":
                     st.error(f"❌ Error saat deteksi: {e}")
     
     if st.button("🔄 Reset"):
-        st.rerun()  # Perbaikan: Ganti experimental_rerun dengan rerun
+        st.rerun()
 
 # ==========================
 # CLASSIFICATION
@@ -236,7 +236,7 @@ elif selected == "Classification":
                     st.error(f"❌ Error saat klasifikasi: {e}")
     
     if st.button("🔄 Reset"):
-        st.rerun()  # Perbaikan: Ganti experimental_rerun dengan rerun
+        st.rerun()
 
 # ==========================
 # ABOUT MODELS
@@ -319,4 +319,4 @@ elif selected == "Comparison":
 # FOOTER
 # ==========================
 st.markdown("---")
-st.markdown("**Iris AI Dashboard** - Dibuat dengan ❤️ menggunakan Streamlit.")
+st.markdown("**Iris AI Dashboard** - Dibuat dengan ❤️ menggunakan Streamlit. Tema gelap oleh AI Assistant.")
