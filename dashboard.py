@@ -14,17 +14,30 @@ except Exception:
     option_menu = None
 
 # ==========================
-# Custom CSS untuk UI yang Lebih Menarik
+# Custom CSS untuk UI Modern (Tema Putih-Ungu-Biru Modern)
 # ==========================
 st.markdown("""
     <style>
-    .main { background-color: #F0F8FF; }  /* Latar belakang biru muda */
-    .stTitle { color: #4B0082; font-family: 'Arial', sans-serif; }  /* Judul ungu */
-    .stMarkdown { font-size: 16px; }
-    .stButton>button { background-color: #1E90FF; color: white; border-radius: 8px; }
-    .stProgress > div > div > div > div { background-color: #1E90FF; }
+    .main { background-color: #FFFFFF; }  /* Latar belakang putih bersih */
+    .stTitle { color: #8A2BE2; font-family: 'Arial', sans-serif; font-weight: bold; }  /* Judul ungu modern */
+    .stMarkdown { font-size: 16px; color: #333333; }  /* Teks abu gelap untuk readability */
+    .stButton>button { background: linear-gradient(45deg, #8A2BE2, #00CED1); color: white; border-radius: 10px; border: none; padding: 10px 20px; font-weight: bold; }
+    .stButton>button:hover { background: linear-gradient(45deg, #00CED1, #8A2BE2); }
+    .stProgress > div > div > div > div { background: linear-gradient(45deg, #8A2BE2, #00CED1); }
+    .stSidebar { background-color: #F8F9FA; }  /* Sidebar abu muda */
+    .stRadio > div { color: #8A2BE2; }
     </style>
 """, unsafe_allow_html=True)
+
+# ==========================
+# Mapping Kelas CNN ke Nama Bunga (Sesuai Dataset Iris)
+# ==========================
+CLASS_NAMES = {
+    0: "Iris-setosa",  # Jika kelas dimulai dari 0, adjust sesuai model Anda
+    1: "Iris-setosa",
+    2: "Iris-versicolor",
+    3: "Iris-virginica"
+}
 
 # ==========================
 # Load Models (dengan error handling yang lebih baik)
@@ -103,10 +116,10 @@ if option_menu is not None:
         orientation="horizontal",
         default_index=0,
         styles={
-            "container": {"padding": "0!important", "background-color": "#EAF4FC"},
-            "icon": {"color": "#1E90FF", "font-size": "18px"},
-            "nav-link": {"font-size": "14px", "text-align": "center", "margin": "0px", "--hover-color": "#B3D9FF"},
-            "nav-link-selected": {"background-color": "#1E90FF", "color": "white"},
+            "container": {"padding": "0!important", "background-color": "#F8F9FA"},
+            "icon": {"color": "#8A2BE2", "font-size": "18px"},
+            "nav-link": {"font-size": "14px", "text-align": "center", "margin": "0px", "--hover-color": "#E6E6FA"},
+            "nav-link-selected": {"background-color": "#8A2BE2", "color": "white"},
         },
     )
 else:
@@ -125,7 +138,7 @@ if selected == "Home":
     
     Unggah gambar dan jelajahi fitur-fitur kami!
     """)
-    st.image("https://via.placeholder.com/800x200/4B0082/FFFFFF?text=Iris+AI+Dashboard", use_container_width=True)  # Placeholder image
+    st.image("https://via.placeholder.com/800x200/8A2BE2/FFFFFF?text=Iris+AI+Dashboard", use_container_width=True)  # Placeholder image dengan warna baru
 
 # ==========================
 # OBJECT DETECTION
@@ -211,9 +224,12 @@ elif selected == "Classification":
                     else:
                         class_index, confidence = 0, 0.0
                     
+                    # Mapping ke nama bunga
+                    flower_name = CLASS_NAMES.get(class_index, f"Kelas {class_index}")
+                    
                     with col2:
                         st.subheader("Hasil Klasifikasi")
-                        st.metric("Kelas Prediksi", f"Kelas {class_index}", f"{confidence:.2%} Confidence")
+                        st.metric("Nama Bunga", flower_name, f"{confidence:.2%} Confidence")
                         st.write(f"⏱️ Waktu Proses: {elapsed:.2f} detik")
                 except Exception as e:
                     st.error(f"❌ Error saat klasifikasi: {e}")
@@ -228,7 +244,7 @@ elif selected == "About Models":
     st.title("ℹ️ Tentang Model")
     st.markdown("""
     - **YOLO (You Only Look Once)**: Model deteksi objek real-time dari Ultralytics. Cocok untuk mendeteksi objek dalam gambar. [Pelajari lebih lanjut](https://docs.ultralytics.com/).
-    - **CNN (Convolutional Neural Network)**: Model klasifikasi gambar berbasis Keras/TensorFlow. Digunakan untuk mengkategorikan gambar ke dalam kelas tertentu.
+    - **CNN (Convolutional Neural Network)**: Model klasifikasi gambar berbasis Keras/TensorFlow. Mengklasifikasikan gambar ke nama bunga seperti Iris-setosa, Iris-versicolor, atau Iris-virginica.
     
     Model ini dilatih pada dataset khusus (sesuai nama file Anda).
     """)
@@ -260,7 +276,8 @@ elif selected == "Comparison":
                 arr = preprocess_for_model(img, classifier)
                 pred = classifier.predict(arr)
                 class_idx = np.argmax(pred)
-                results["CNN"] = f"Kelas {class_idx} ({np.max(pred):.2%})"
+                flower_name = CLASS_NAMES.get(class_idx, f"Kelas {class_idx}")
+                results["CNN"] = f"{flower_name} ({np.max(pred):.2%})"
             except:
                 results["CNN"] = "Error"
         else:
@@ -272,4 +289,4 @@ elif selected == "Comparison":
 # FOOTER
 # ==========================
 st.markdown("---")
-st.markdown("**Iris AI Dashboard** - Dibuat dengan ❤️ menggunakan Streamlit. Optimasi UI/UX oleh AI Assistant.")
+st.markdown("**Iris AI Dashboard** - Dibuat dengan ❤️ menggunakan Streamlit. Tema modern oleh AI Assistant.")
