@@ -118,7 +118,7 @@ if option_menu is not None:
         default_index=0,
         styles={
             "container": {"padding": "0!important", "background-color": "#1E1E1E"},
-            "icon": {"color": "#8A2BE2", "font-size": "18px"},  # Perbaikan: quotes ditambahkan
+            "icon": {"color": "#8A2BE2", "font-size": "18px"},
             "nav-link": {"font-size": "14px", "text-align": "center", "margin": "0px", "--hover-color": "#333333"},
             "nav-link-selected": {"background-color": "#8A2BE2", "color": "white"},
         },
@@ -248,30 +248,36 @@ elif selected == "About Models":
     col1, col2 = st.columns(2)
     
     with col1:
-        st.markdown('<div class="model-box">', unsafe_allow_html=True)
-        st.subheader("🧩 Model yang Digunakan: YOLO")
-        st.markdown("""
-        **YOLO (You Only Look Once)** adalah model deteksi objek real-time dari Ultralytics. 
-        - **Fungsi**: Mendeteksi dan mengklasifikasikan objek dalam gambar dengan bounding box.
-        - **Keunggulan**: Cepat, akurat untuk aplikasi real-time, dan mendukung multiple objek.
-        - **Penggunaan di Dashboard**: Digunakan untuk halaman Object Detection.
-        
-        [Pelajari lebih lanjut](https://docs.ultralytics.com/).
-        """)
-        st.markdown('</div>', unsafe_allow_html=True)
+        # Kotak YOLO dengan HTML lengkap
+        yolo_html = """
+        <div class="model-box">
+            <h3>🧩 Model yang Digunakan: YOLO</h3>
+            <p><strong>YOLO (You Only Look Once)</strong> adalah model deteksi objek real-time dari Ultralytics.</p>
+            <ul>
+                <li><strong>Fungsi</strong>: Mendeteksi dan mengklasifikasikan objek dalam gambar dengan bounding box.</li>
+                <li><strong>Keunggulan</strong>: Cepat, akurat untuk aplikasi real-time, dan mendukung multiple objek.</li>
+                <li><strong>Penggunaan di Dashboard</strong>: Digunakan untuk halaman Object Detection.</li>
+            </ul>
+            <p><a href="https://docs.ultralytics.com/" target="_blank">Pelajari lebih lanjut</a></p>
+        </div>
+        """
+        st.markdown(yolo_html, unsafe_allow_html=True)
     
     with col2:
-        st.markdown('<div class="model-box">', unsafe_allow_html=True)
-        st.subheader("🌸 Model yang Digunakan: CNN")
-        st.markdown("""
-        **CNN (Convolutional Neural Network)** adalah model klasifikasi gambar berbasis Keras/TensorFlow. 
-        - **Fungsi**: Menganalisis fitur gambar untuk mengkategorikan ke dalam kelas (misalnya, nama bunga).
-        - **Keunggulan**: Efisien untuk tugas klasifikasi, dapat dilatih pada dataset besar.
-        - **Penggunaan di Dashboard**: Digunakan untuk halaman Classification, memprediksi nama bunga seperti Iris-setosa.
-        
-        [Pelajari lebih lanjut](https://www.tensorflow.org/).
-        """)
-        st.markdown('</div>', unsafe_allow_html=True)
+        # Kotak CNN dengan HTML lengkap
+        cnn_html = """
+        <div class="model-box">
+            <h3>🌸 Model yang Digunakan: CNN</h3>
+            <p><strong>CNN (Convolutional Neural Network)</strong> adalah model klasifikasi gambar berbasis Keras/TensorFlow.</p>
+            <ul>
+                <li><strong>Fungsi</strong>: Menganalisis fitur gambar untuk mengkategorikan ke dalam kelas (misalnya, nama bunga).</li>
+                <li><strong>Keunggulan</strong>: Efisien untuk tugas klasifikasi, dapat dilatih pada dataset besar.</li>
+                <li><strong>Penggunaan di Dashboard</strong>: Digunakan untuk halaman Classification, memprediksi nama bunga seperti Iris-setosa.</li>
+            </ul>
+            <p><a href="https://www.tensorflow.org/" target="_blank">Pelajari lebih lanjut</a></p>
+        </div>
+        """
+        st.markdown(cnn_html, unsafe_allow_html=True)
 
 # ==========================
 # COMPARISON
