@@ -112,8 +112,8 @@ st.set_page_config(page_title="Iris AI 🌺", layout="wide", page_icon="🌸")
 if option_menu is not None:
     selected = option_menu(
         menu_title=None,
-        options=["Home", "Object Detection", "Classification", "About Models", "Comparison"],
-        icons=["house", "bounding-box", "image", "info-circle", "bar-chart"],
+        options=["Home", "Object Detection", "Classification", "Comparison","About Models"],
+        icons=["house", "bounding-box", "image", "bar-chart","info-circle"],
         orientation="horizontal",
         default_index=0,
         styles={
