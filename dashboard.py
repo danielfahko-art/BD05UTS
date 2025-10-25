@@ -14,30 +14,31 @@ except Exception:
     option_menu = None
 
 # ==========================
-# Custom CSS untuk Tema Gelap (Background Sebelumnya, Force Dark Mode untuk Kompatibilitas Light Mode Device)
+# Force Dark Mode Global (Meta Tag untuk Browser)
+# ==========================
+st.markdown("""
+    <meta name="color-scheme" content="dark">
+""", unsafe_allow_html=True)
+
+# ==========================
+# Custom CSS untuk Tema Gelap (Agresif dengan !important untuk Kompatibilitas Device Light Mode)
 # ==========================
 st.markdown("""
     <style>
-    .main { background-color: #121212; color: #F0F0F0; }  /* Background gelap sebelumnya, font terang */
-    .stTitle { color: #FFFFFF; font-family: 'Arial', sans-serif; font-weight: bold; }  /* Judul putih */
-    .stMarkdown { font-size: 16px; color: #F0F0F0; }  /* Teks abu terang */
-    .stButton>button { background: linear-gradient(45deg, #8A2BE2, #00CED1); color: white; border-radius: 10px; border: none; padding: 10px 20px; font-weight: bold; }
-    .stButton>button:hover { background: linear-gradient(45deg, #00CED1, #8A2BE2); }
-    .stProgress > div > div > div > div { background: linear-gradient(45deg, #8A2BE2, #00CED1); }
-    .stSidebar { background-color: #1E1E1E; color: #F0F0F0; }  /* Sidebar gelap sebelumnya */
-    .stRadio > div { color: #F0F0F0; }
-    .model-box { border: 2px solid #8A2BE2; border-radius: 10px; padding: 15px; margin: 10px 0; background-color: #1E1E1E; }  /* Kotak model gelap sebelumnya */
+    .main { background-color: #121212 !important; color: #F0F0F0 !important; }  /* Background gelap, font terang */
+    .stTitle { color: #FFFFFF !important; font-family: 'Arial', sans-serif; font-weight: bold; }  /* Judul putih */
+    .stMarkdown { font-size: 16px; color: #F0F0F0 !important; }  /* Teks abu terang */
+    .stButton>button { background: linear-gradient(45deg, #8A2BE2, #00CED1) !important; color: white !important; border-radius: 10px; border: none; padding: 10px 20px; font-weight: bold; }
+    .stButton>button:hover { background: linear-gradient(45deg, #00CED1, #8A2BE2) !important; }
+    .stProgress > div > div > div > div { background: linear-gradient(45deg, #8A2BE2, #00CED1) !important; }
+    .stSidebar { background-color: #1E1E1E !important; color: #F0F0F0 !important; }  /* Sidebar gelap */
+    .stRadio > div { color: #F0F0F0 !important; }
+    .model-box { border: 2px solid #8A2BE2; border-radius: 10px; padding: 15px; margin: 10px 0; background-color: #1E1E1E !important; }  /* Kotak model gelap */
     
-    /* Force Dark Mode untuk Kompatibilitas dengan Device Light Mode */
-    @media (prefers-color-scheme: light) {
-        .main, .stSidebar, .model-box, .stContainer, .stColumns {
-            background-color: #121212 !important;
-            color: #F0F0F0 !important;
-        }
-        .stTitle { color: #FFFFFF !important; }
-        .stMarkdown { color: #F0F0F0 !important; }
-        .stRadio > div { color: #F0F0F0 !important; }
-    }
+    /* Force Dark Mode untuk Semua Elemen, Override Device Light Mode */
+    * { color: #F0F0F0 !important; background-color: #121212 !important; }
+    body, html { background-color: #121212 !important; color: #F0F0F0 !important; }
+    .stContainer, .stColumns, .stImage, .stText, .stTable { background-color: #121212 !important; color: #F0F0F0 !important; }
     </style>
 """, unsafe_allow_html=True)
 
