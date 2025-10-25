@@ -14,19 +14,30 @@ except Exception:
     option_menu = None
 
 # ==========================
-# Custom CSS untuk Tema Gelap Modern (Background Gelap, Font Terang)
+# Custom CSS untuk Tema Gelap (Background Sebelumnya, Force Dark Mode untuk Kompatibilitas Light Mode Device)
 # ==========================
 st.markdown("""
     <style>
-    .main { background-color: #121212; color: #F0F0F0; }  /* Background gelap, font terang */
+    .main { background-color: #121212; color: #F0F0F0; }  /* Background gelap sebelumnya, font terang */
     .stTitle { color: #FFFFFF; font-family: 'Arial', sans-serif; font-weight: bold; }  /* Judul putih */
     .stMarkdown { font-size: 16px; color: #F0F0F0; }  /* Teks abu terang */
     .stButton>button { background: linear-gradient(45deg, #8A2BE2, #00CED1); color: white; border-radius: 10px; border: none; padding: 10px 20px; font-weight: bold; }
     .stButton>button:hover { background: linear-gradient(45deg, #00CED1, #8A2BE2); }
     .stProgress > div > div > div > div { background: linear-gradient(45deg, #8A2BE2, #00CED1); }
-    .stSidebar { background-color: #1E1E1E; color: #F0F0F0; }  /* Sidebar gelap */
+    .stSidebar { background-color: #1E1E1E; color: #F0F0F0; }  /* Sidebar gelap sebelumnya */
     .stRadio > div { color: #F0F0F0; }
-    .model-box { border: 2px solid #8A2BE2; border-radius: 10px; padding: 15px; margin: 10px 0; background-color: #1E1E1E; }  /* Kotak model */
+    .model-box { border: 2px solid #8A2BE2; border-radius: 10px; padding: 15px; margin: 10px 0; background-color: #1E1E1E; }  /* Kotak model gelap sebelumnya */
+    
+    /* Force Dark Mode untuk Kompatibilitas dengan Device Light Mode */
+    @media (prefers-color-scheme: light) {
+        .main, .stSidebar, .model-box, .stContainer, .stColumns {
+            background-color: #121212 !important;
+            color: #F0F0F0 !important;
+        }
+        .stTitle { color: #FFFFFF !important; }
+        .stMarkdown { color: #F0F0F0 !important; }
+        .stRadio > div { color: #F0F0F0 !important; }
+    }
     </style>
 """, unsafe_allow_html=True)
 
